@@ -4,6 +4,7 @@ import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { styles } from '../Styles/ChatList.stylesheet';
 
 import { useNavigation } from '@react-navigation/native';
+import LoginPage from './login';
 
 // the {navigation}: any should be fixed , its just temporary solution for fixing "any error" 
 const HomePage = ({ navigation }: any) => {
@@ -19,7 +20,9 @@ const HomePage = ({ navigation }: any) => {
             <TouchableOpacity>
                 <Text>SIGNUP</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.ContinueButton} onPress={() => navigation.navigate("Login")}>
+            <TouchableOpacity style={styles.ContinueButton} onPress={() => navigation.navigate("Login", {
+                LoginPageData: " This is the login page data passed from home",
+            })}>
                 <Text>continue for testing....</Text>
             </TouchableOpacity>
         </View>
