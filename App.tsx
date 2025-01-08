@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import HomePage from './src/screens/home';
 import  ChatList  from './src/screens/ChatScreen/index'
@@ -6,7 +6,7 @@ import  ChatList  from './src/screens/ChatScreen/index'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import LoginPage from './src/screens/login';
-
+import { AuthProvider } from './src/context/authContext';
 // const MyStack = createNativeStackNavigator({
 //   screens: {
 //     Home: HomePage,
@@ -18,13 +18,18 @@ const Stack = createNativeStackNavigator();
 
 
 const App = () => {
-  return (
+
+  const[LoginStatus, setLogin]= useState(0);
+  return (  
+  <AuthProvider>
+    <HomePage />
    <NavigationContainer>
-    <Stack.Navigator initialRouteName='Home'>
+    <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={HomePage} />
       <Stack.Screen name="Login" component={LoginPage} />
     </Stack.Navigator>
    </NavigationContainer>
+  </AuthProvider>
   );
 };
 
