@@ -1,24 +1,45 @@
 import React from 'react';
-// import {StyleSheet, Text, View} from 'react-native';
-import { Text, TouchableOpacity } from 'react-native';
-import { View } from 'react-native';
-const LoginPage = ({route, navigation}: any) => {
-    const {LoginPageData} = route.params; 
+import {Text, View, TouchableOpacity} from 'react-native';
+
+
+import { useNavigation } from '@react-navigation/native';
+
+import HomePage from './home';
+
+import { useAuth } from '../context/authContext';
+
+import { styles } from '../Styles/ChatList.stylesheet';
+
+
+
+const LoginPage = ({route}: any) => {
+    const LoginPageData = route?.params?.LoginPageData || ''; 
+
+    const navigation = useNavigation();
+    const { isLoggedIn, logIn, logOut } = useAuth();
+
     return (
-        <View>
-        <Text>
-        Welcome to the Login page
-        </Text>
-        <TouchableOpacity  onPress={() => navigation.navigate("Home")}>
-            <Text>
-
-            Home
-        {LoginPageData}
-            </Text>
-
-        </TouchableOpacity>
-        </View>
-    );
+    <View style={styles.SafeAreaViewContainer}>
+                 {isLoggedIn ? (
+                     <>
+                <Text>
+                Welcome to the Chat List
+                </Text>
+                    </>)
+                    :<>
+                    <TouchableOpacity onPress={logIn}>
+                        <Text style={styles.LoginButton}>LOGIN</Text>
+                    </TouchableOpacity>
+                     <TouchableOpacity>
+                    <Text>CLICK TO LOGIN</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <Text>CLICK TO LOGIN</Text>
+          </TouchableOpacity>
+                    </>
+    }
+            </View>
+                );
 };
 
 export default LoginPage;
